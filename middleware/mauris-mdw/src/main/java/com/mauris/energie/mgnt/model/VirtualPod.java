@@ -1,4 +1,4 @@
-package io.swagger.model;
+package com.mauris.energie.mgnt.model;
 
 import java.util.Objects;
 import java.util.ArrayList;

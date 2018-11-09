@@ -1,4 +1,4 @@
-package io.swagger.configuration;
+package com.mauris.energie.mgnt.configuration;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonTokenId;

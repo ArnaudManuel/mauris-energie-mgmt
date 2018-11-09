@@ -1,4 +1,4 @@
-package io.swagger.api;
+package com.mauris.energie.mgnt.api;
 
 import java.io.IOException;
 

@@ -1,7 +1,8 @@
-package io.swagger.api;
+package com.mauris.energie.mgnt.api;
 
-import io.swagger.model.InlineResponse200;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mauris.energie.mgnt.model.InlineResponse200;
+
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

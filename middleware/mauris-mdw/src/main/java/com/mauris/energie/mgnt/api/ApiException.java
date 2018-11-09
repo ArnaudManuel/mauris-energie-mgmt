@@ -1,4 +1,4 @@
-package io.swagger.api;
+package com.mauris.energie.mgnt.api;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-11-09T22:51:47.974Z")
 

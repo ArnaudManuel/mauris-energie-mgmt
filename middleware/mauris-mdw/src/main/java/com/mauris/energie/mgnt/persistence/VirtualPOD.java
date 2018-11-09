@@ -1,4 +1,4 @@
-package io.swagger.persistence;
+package com.mauris.energie.mgnt.persistence;
 
 import java.util.List;
 
