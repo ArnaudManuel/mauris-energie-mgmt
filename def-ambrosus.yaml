@@ -1,0 +1,114 @@
+swagger: "2.0"
+info:
+  description: "T"
+  version: "1.0.0"
+  title: "Swagger Petstore"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "gateway-test.ambrosus.com"
+tags:
+- name: "pods"
+  description: "access to pods"
+schemes:
+- "https"
+paths:
+  /events:
+    get:
+      tags:
+      - "pods"
+      summary: "point of mesures"
+      description: ""
+      operationId: "getPod"
+      produces:
+      - "application/json"
+      parameters:
+      - in: query
+        name: data[pod]
+        description: "the pod identification"
+        required: true
+        type: string
+      - in: query
+        name: fromTimestamp
+        description: "secondes from epoch"
+        required: true
+        type: integer
+        format: int64
+      - in: query
+        name: toTimestamp
+        description: "secondes from epoch"
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: object
+            properties:
+              results:
+                type: "array"
+                items:
+                  $ref: "#/definitions/event"
+              
+        405:
+          description: "Invalid input"
+      security: []
+    
+definitions:
+#  mesure:
+#    type: object
+#    properties:
+#      dateTime:
+#        type: "string"
+#        format: "date-time"
+#      value:
+#        type: number
+#        format: double
+#      unite:
+#        type: string
+#        format: string
+        
+        
+  event:
+    type: object
+    properties:
+      content:
+        type: object
+        properties: 
+          idData:
+            type: object
+            properties: 
+              timestamp:
+                type: integer
+                format: "int64"
+          data:
+            type: array
+            items:
+              $ref: '#/definitions/mesure'
+        
+        
+  mesure:
+    type: object
+    properties:
+      mesure:
+        type: number
+        format: double
+      unit:
+        type: string
+      obis:
+        type: string
+        enum:
+        - "1-1:1.8.1" # A+ haut tarif
+        - "1-1:1.8.2" # A+ bas tarif
+        - "A+" # A+ bas tarif
+        - "A-"
+        - "R+"
+        - "R-"
+      
+externalDocs: 
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
