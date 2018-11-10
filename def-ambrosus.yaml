@@ -47,32 +47,21 @@ paths:
         200:
           description: "successful operation"
           schema:
-            type: object
-            properties:
-              results:
-                type: "array"
-                items:
-                  $ref: "#/definitions/event"
+            $ref: "#/definitions/ambrosus-answer"
               
         405:
           description: "Invalid input"
       security: []
     
 definitions:
-#  mesure:
-#    type: object
-#    properties:
-#      dateTime:
-#        type: "string"
-#        format: "date-time"
-#      value:
-#        type: number
-#        format: double
-#      unite:
-#        type: string
-#        format: string
-        
-        
+     
+  ambrosus-answer:
+    type: object
+    properties:
+      results:
+        type: "array"
+        items:
+          $ref: "#/definitions/event"  
   event:
     type: object
     properties:
