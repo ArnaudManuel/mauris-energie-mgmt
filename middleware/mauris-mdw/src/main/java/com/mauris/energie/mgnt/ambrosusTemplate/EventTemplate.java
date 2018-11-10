@@ -1,15 +1,21 @@
 package com.mauris.energie.mgnt.ambrosusTemplate;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
-@Data
+
 public class EventTemplate {
 	int resultCount;
 	
 	List<ResultsTemplate> results;
 
+	public EventTemplate() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public int getResultCount() {
 		return resultCount;
 	}
@@ -30,7 +36,9 @@ public class EventTemplate {
 	public String toString() {
 		return "EventTemplate{" +
 				"resultCount=" + resultCount +
-				", results=" + results +
+				", results=" + results.toString() +
 				'}';
 	}
+
+
 }
