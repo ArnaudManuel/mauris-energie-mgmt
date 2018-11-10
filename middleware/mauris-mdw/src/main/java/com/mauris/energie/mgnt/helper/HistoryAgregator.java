@@ -2,6 +2,7 @@ package com.mauris.energie.mgnt.helper;
 
 import com.mauris.energie.mgnt.model.History;
 import com.mauris.energie.mgnt.model.Measure;
+import com.mauris.energie.mgnt.model.Obis;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -15,10 +16,10 @@ public class HistoryAgregator {
 
     public static History aggragate(History base, History... others){
         //oris - timestamp - pair
-        HashMap<String, HashMap<Date, Pair>> temp = new HashMap<>();
+        HashMap<Obis, HashMap<Date, Pair>> temp = new HashMap<>();
 
 
-        for (Map.Entry<String, List<Measure>> value : base.getMeasures().entrySet()){
+        for (Map.Entry<Obis, List<Measure>> value : base.getMeasures().entrySet()){
             //first collection, free
             HashMap<Date, Pair> obisCollection = new HashMap<>();
             for (Measure measure : value.getValue())
@@ -28,7 +29,7 @@ public class HistoryAgregator {
         }
 
         for(History other : others)
-            for (Map.Entry<String, List<Measure>> value : other.getMeasures().entrySet()){
+            for (Map.Entry<Obis, List<Measure>> value : other.getMeasures().entrySet()){
                 //other, check existence
                 HashMap<Date, Pair> obisCollection = temp.get(value.getKey());
                 if(obisCollection == null)
@@ -41,7 +42,7 @@ public class HistoryAgregator {
             }
 
         History concatened = new History();
-        for (Map.Entry<String, HashMap<Date, Pair>> list : temp.entrySet())
+        for (Map.Entry<Obis, HashMap<Date, Pair>> list : temp.entrySet())
             for(Map.Entry<Date, Pair> virtualMeasure : list.getValue().entrySet())
                 concatened.addMeasure(list.getKey(),new Measure(virtualMeasure.getKey(), virtualMeasure.getValue().value, virtualMeasure.getValue().unit));
 
