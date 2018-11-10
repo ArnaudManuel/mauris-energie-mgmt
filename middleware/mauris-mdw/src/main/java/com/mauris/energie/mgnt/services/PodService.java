@@ -1,6 +1,7 @@
 package com.mauris.energie.mgnt.services;
 
 import com.mauris.energie.mgnt.ambrosusTemplate.RestAccess;
+import com.mauris.energie.mgnt.helper.HistoryAgregator;
 import com.mauris.energie.mgnt.mappers.TemplateConverter;
 import com.mauris.energie.mgnt.model.History;
 import com.mauris.energie.mgnt.model.VirtualPod;
@@ -55,6 +56,8 @@ public class PodService  {
 
     @GetMapping("/pods/{virtual-id}/data")
     public ResponseEntity<History> getPodData(@ApiParam(value = "the pod identification", required = true) @PathVariable("virtual-id") String virtualId, @ApiParam(value = "the pod identification format dd-MM-yyyy", required = true) @RequestParam(value = "from", required = true) @NotNull @Valid String from, @ApiParam(value = "the pod identification format dd-MM-yyyy", required = true) @RequestParam(value = "to", required = true) @NotNull @Valid String to) {
+
+
         SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
 
         Date start;
@@ -65,9 +68,7 @@ public class PodService  {
         } catch (ParseException e){
             return ResponseEntity.badRequest().build();
         }
-
-        History history = TemplateConverter.toHistory(podsApi.getAmbrosus(virtualId,  start,  end));
-        return ResponseEntity.ok().body(history);
+        return ResponseEntity.ok(getData(virtualId, start, end));
 
     }
 
@@ -110,5 +111,22 @@ public class PodService  {
         virtualPod.setOnlySimpleFee(_value);
 
         return ResponseEntity.ok().body(virtualPod);
+    }
+
+    private History getData(String key, Date from, Date to){
+        VirtualPod vPod = cache.get(key);
+        if(vPod != null){
+            History base = TemplateConverter.toHistory(podsApi.getAmbrosus(vPod.get(0),  from,  to));
+            ArrayList<History> reamining = new ArrayList<>();
+            if(vPod.size() == 1)
+                return base;
+
+            for(int cpt = 1 ; cpt < vPod.size() ; ++ cpt)
+                reamining.add(TemplateConverter.toHistory(podsApi.getAmbrosus(vPod.get(cpt),  from,  to)));
+
+            return HistoryAgregator.aggragate(base, (History[]) reamining.toArray());
+        }else{
+            return TemplateConverter.toHistory(podsApi.getAmbrosus(key,  from,  to));
+        }
     }
 }
