@@ -35,12 +35,4 @@ public class MaurisMdwApplication {
 		};
 	}
 
-
-	@Bean
-	CommandLineRunner serviceTest(PodService test) {
-		return (arg)->{
-			String data = test.getPodData("CH1014001234500000000000000006860_test", "01-01-2000", "01-01-2100").getBody();
-			System.out.println(data.toString());
-		};
-	}
 }

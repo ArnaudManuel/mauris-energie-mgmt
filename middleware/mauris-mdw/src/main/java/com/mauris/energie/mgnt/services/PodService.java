@@ -46,7 +46,7 @@ public class PodService  {
     }
 
     @GetMapping("/pods/{virtual-id}/data")
-    public ResponseEntity<String> getPodData(@ApiParam(value = "the pod identification", required = true) @PathVariable("virtual-id") String virtualId, @ApiParam(value = "the pod identification format dd-MM-yyyy", required = true) @RequestParam(value = "from", required = true) @NotNull @Valid String from, @ApiParam(value = "the pod identification format dd-MM-yyyy", required = true) @RequestParam(value = "to", required = true) @NotNull @Valid String to) {
+    public ResponseEntity<History> getPodData(@ApiParam(value = "the pod identification", required = true) @PathVariable("virtual-id") String virtualId, @ApiParam(value = "the pod identification format dd-MM-yyyy", required = true) @RequestParam(value = "from", required = true) @NotNull @Valid String from, @ApiParam(value = "the pod identification format dd-MM-yyyy", required = true) @RequestParam(value = "to", required = true) @NotNull @Valid String to) {
         SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
 
         Date start;
@@ -61,7 +61,7 @@ public class PodService  {
 
 
         History history = TemplateConverter.toHistory(podsApi.getAmbrosus(virtualId,  start,  end));
-        return ResponseEntity.ok().body(history.toString());
+        return ResponseEntity.ok().body(history);
 
     }
 
