@@ -4,6 +4,7 @@ import com.mauris.energie.mgnt.ambrosusTemplate.RestAccess;
 import com.mauris.energie.mgnt.mappers.TemplateConverter;
 import com.mauris.energie.mgnt.model.History;
 import com.mauris.energie.mgnt.model.VirtualPod;
+import com.mauris.energie.mgnt.model.VirtualPodListEleement;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +14,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Created by Arnaud on 10.11.2018.
@@ -34,6 +34,14 @@ public class PodService  {
     @GetMapping("/")
     public ResponseEntity<String> hello() {
         return ResponseEntity.ok("api is working");
+    }
+
+    @GetMapping("/pods")
+    public ResponseEntity<List<VirtualPodListEleement>> getAl(){
+        List<VirtualPodListEleement> content = new LinkedList<>();
+        for (Map.Entry<String, VirtualPod> value : cache.entrySet())
+            content.add(new VirtualPodListEleement(value.getKey(), value.getValue()));
+        return ResponseEntity.ok(content);
     }
 
     @GetMapping("/pods/{virtual-id}")
@@ -57,8 +65,6 @@ public class PodService  {
         } catch (ParseException e){
             return ResponseEntity.badRequest().build();
         }
-
-
 
         History history = TemplateConverter.toHistory(podsApi.getAmbrosus(virtualId,  start,  end));
         return ResponseEntity.ok().body(history.toString());
@@ -85,7 +91,7 @@ public class PodService  {
         if (virtualPod == null)
             return ResponseEntity.notFound().build();
 
-        virtualPod = new VirtualPod();
+        virtualPod.clear();
         for (String content : contents.split(","))
             virtualPod.add(content);
 
@@ -93,5 +99,16 @@ public class PodService  {
 
         return ResponseEntity.ok().body(virtualPod);
     }
+    @PutMapping("/pods/{virtual-id}")
+    public ResponseEntity<VirtualPod> setSimpleTarification(@ApiParam(value = "the pod identification", required = true) @PathVariable("virtual-id") String virtualId, @ApiParam(value = "the pod contents, coma separated", required = true) @RequestParam(value = "contents", required = true) @NotNull @Valid String contents) {
+        boolean _value = contents.equalsIgnoreCase("true");
 
+        VirtualPod virtualPod = cache.get(virtualId);
+        if (virtualPod == null)
+            return ResponseEntity.notFound().build();
+
+        virtualPod.setOnlySimpleFee(_value);
+
+        return ResponseEntity.ok().body(virtualPod);
+    }
 }

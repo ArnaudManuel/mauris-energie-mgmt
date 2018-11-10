@@ -22,7 +22,7 @@ public class TemplateConverter {
     }
 
     private static void convert(ResultsTemplate resultsTemplate, History container){
-        Date timeStamp = new Date(resultsTemplate.getContent().getIdData().getTimestamp()*1000);
+        Date timeStamp = new Date(resultsTemplate.getContent().getIdData().getTimestamp()*1000l);
         for (DataTemplate data : resultsTemplate.getContent().getData()){
             container.addMeasure( data.getObis().toString(),new Measure(timeStamp, data.getMeasure(), data.getUnit()));
         }

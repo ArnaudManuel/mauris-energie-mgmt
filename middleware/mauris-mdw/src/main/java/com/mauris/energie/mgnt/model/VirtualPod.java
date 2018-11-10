@@ -12,6 +12,16 @@ import java.util.Objects;
 
 public class VirtualPod extends ArrayList<String>  {
 
+  private boolean onlySimpleFee = false;
+
+  public boolean isOnlySimpleFee() {
+    return onlySimpleFee;
+  }
+
+  public void setOnlySimpleFee(boolean onlySimpleFee) {
+    this.onlySimpleFee = onlySimpleFee;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
