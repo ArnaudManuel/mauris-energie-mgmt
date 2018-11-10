@@ -1,5 +1,7 @@
 package com.mauris.energie.mgnt;
 
+import java.util.Date;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -26,7 +28,7 @@ public class MaurisMdwApplication {
 	CommandLineRunner testouille(RestAccess test) {
 		return (arg)->{
 
-            System.out.println(test.getSample());
+            System.out.println(test.getAmbrosus("CH1014001234500000000000000006860_test", new Date(1L), new Date()));
 		};
 	}
 }
