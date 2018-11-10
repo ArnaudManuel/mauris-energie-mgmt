@@ -63,7 +63,7 @@ public class PodService  {
 
 
 
-    @PostMapping("/pods")
+    @PostMapping("/pods/{virtual-id}")
     public ResponseEntity<Void> podPost(@ApiParam(value = "the pod identification", required = true) @RequestParam(value = "virtual-id", required = true) @NotNull @Valid String virtualId, @ApiParam(value = "the pod contents, coma separated") @RequestParam(value = "contents", required = false) @Valid String contents) {
 
         VirtualPod virtualPod = new VirtualPod();
