@@ -25,6 +25,11 @@ public class PodService  {
     RestAccess podsApi;
 
     private static final HashMap<String, VirtualPod> cache = new HashMap<>();
+    static{
+        VirtualPod test = new VirtualPod();
+        test.add("CH1014001234500000000000000006860_test");
+        cache.put("test", test);
+    }
 
 
     @GetMapping("/pods/{virtual-id}")
