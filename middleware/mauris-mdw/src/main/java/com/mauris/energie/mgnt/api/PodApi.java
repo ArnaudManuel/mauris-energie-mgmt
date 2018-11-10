@@ -5,35 +5,47 @@
  */
 package com.mauris.energie.mgnt.api;
 
+import com.mauris.energie.mgnt.model.VirtualPod;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.mauris.energie.mgnt.model.InlineResponse200;
 
 import javax.validation.Valid;
-import javax.validation.constraints.*;
-import java.util.List;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-11-09T22:51:47.974Z")
+import javax.validation.constraints.NotNull;
 
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-11-09T22:51:47.974Z")
 @Api(value = "pod", description = "the pod API")
 public interface PodApi {
 
-    @ApiOperation(value = "point of mesures", nickname = "getPodContent", notes = "", response = InlineResponse200.class, tags={ "pods", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "successful operation", response = InlineResponse200.class),
-        @ApiResponse(code = 405, message = "Invalid input") })
+    @ApiOperation(value = "point of mesures", nickname = "getPodContent", notes = "", response = VirtualPod.class, tags={ "pods", })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "successful operation", response = VirtualPod.class),
+            @ApiResponse(code = 405, message = "Invalid input") })
     @RequestMapping(value = "/pod",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
-    ResponseEntity<InlineResponse200> getPodContent(@ApiParam(value = "the pod identification",required=true) @PathVariable("virtual-id") String virtualId);
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    ResponseEntity<VirtualPod> getPodContent(@ApiParam(value = "the pod identification",required=true) @PathVariable("virtual-id") String virtualId);
+
+
+    @ApiOperation(value = "", nickname = "podPost", notes = "", tags={ "pods", })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK") })
+    @RequestMapping(value = "/pod",
+            method = RequestMethod.POST)
+    ResponseEntity<Void> podPost(@NotNull @ApiParam(value = "the pod identification", required = true) @Valid @RequestParam(value = "virtual-id", required = true) String virtualId, @ApiParam(value = "the pod contents, coma separated") @Valid @RequestParam(value = "contents", required = false) String contents);
+
+
+    @ApiOperation(value = "point of mesures", nickname = "setPodContent", notes = "", response = VirtualPod.class, tags={ "pods", })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "successful operation", response = VirtualPod.class),
+            @ApiResponse(code = 405, message = "Invalid input") })
+    @RequestMapping(value = "/pod",
+            produces = { "application/json" },
+            method = RequestMethod.PUT)
+    ResponseEntity<VirtualPod> setPodContent(@ApiParam(value = "the pod identification",required=true) @PathVariable("virtual-id") String virtualId,@NotNull @ApiParam(value = "the pod contents, coma separated", required = true) @Valid @RequestParam(value = "contents", required = true) String contents);
 
 }
+

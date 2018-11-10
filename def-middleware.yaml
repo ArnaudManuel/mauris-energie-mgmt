@@ -35,29 +35,66 @@ paths:
         200:
           description: "successful operation"
           schema:
-            type: object
-            properties:
-              content:
-                $ref: "#/definitions/virtual-pod"
+            $ref: "#/definitions/virtual-pod"
               
         405:
           description: "Invalid input"
       security: []
+      
+    post:
+      tags:
+      - "pods"
+      summary: "" 
+      description: ""
+      parameters:
+      - in: query
+        name: virtual-id
+        description: "the pod identification"
+        required: true
+        type: string
+      - in: query
+        name: contents
+        description: "the pod contents, coma separated"
+        required: false
+        type: string
+      responses:
+        200:
+          description: OK
+      security: []
     
-definitions:
-#  mesure:
-#    type: object
-#    properties:
-#      dateTime:
-#        type: "string"
-#        format: "date-time"
-#      value:
-#        type: number
-#        format: double
-#      unite:
-#        type: string
-#        format: string
+    
+    put:
+      tags:
+      - "pods"
+      summary: "point of mesures"
+      description: ""
+      operationId: "setPodContent"
+      produces:
+      - "application/json"
+      parameters:
+      - in: path
+        name: virtual-id
+        description: "the pod identification"
+        required: true
+        type: string
         
+      - in: query
+        name: contents
+        description: "the pod contents, coma separated"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/virtual-pod"
+              
+        405:
+          description: "Invalid input"
+      security: []
+  
+    
+definitions:       
         
   virtual-pod:
     type: array
