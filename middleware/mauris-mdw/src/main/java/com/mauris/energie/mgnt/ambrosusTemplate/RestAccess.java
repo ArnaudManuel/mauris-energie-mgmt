@@ -1,11 +1,8 @@
 package com.mauris.energie.mgnt.ambrosusTemplate;
 
-import java.util.List;
-
+import lombok.Data;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
-import lombok.Data;
 
 @Component
 @Data
@@ -17,7 +14,6 @@ public class RestAccess {
 	String fooResourceUrl = "https://gateway-test.ambrosus.com/events?perPage=1000&data[pod]=CH1014001234500000000000000006860_test";
 	
 	EventTemplate events = restTemplate.getForObject(fooResourceUrl, EventTemplate.class);
-
 	return events;
 	}
 }

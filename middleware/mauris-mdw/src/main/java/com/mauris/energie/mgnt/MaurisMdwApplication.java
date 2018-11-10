@@ -21,8 +21,8 @@ public class MaurisMdwApplication {
 	@Bean
 	CommandLineRunner testouille(RestAccess test) {
 		return (arg)->{
-			
-			test.getSample();
+
+            System.out.println(test.getSample());
 		};
 	}
 }
