@@ -30,4 +30,10 @@ public class History {
         this.measures = measures;
     }
 
+    @Override
+    public String toString() {
+        return "History{" +
+                "measures=" + measures +
+                '}';
+    }
 }

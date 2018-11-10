@@ -93,7 +93,42 @@ paths:
           description: "Invalid input"
       security: []
   
-    
+
+  /pod/{virtual-id}/data:
+    get:
+      tags:
+      - "pods"
+      summary: "point of mesures"
+      description: ""
+      operationId: "getPodData"
+      produces:
+      - "application/json"
+      parameters:
+      - in: path
+        name: virtual-id
+        description: "the pod identification"
+        required: true
+        type: string
+      - in: query
+        name: from
+        description: "the pod identification format dd-MM-yyyy"
+        required: true
+        type: string
+      - in: query
+        name: to
+        description: "the pod identification format dd-MM-yyyy"
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: string
+
+        405:
+          description: "Invalid input"
+      security: []
+
 definitions:       
         
   virtual-pod:

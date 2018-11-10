@@ -146,6 +146,9 @@
 									<language>java</language>
 									<library>resttemplate</library>
 									<configOptions>
+										<modelPackage>com.mauris.energie.mgnt.gen.ambosus.model</modelPackage>
+										<apiPackage>com.mauris.energie.mgnt.gen.ambosus.api</apiPackage>
+										<invokerPackage>com.mauris.energie.mgnt.gen.ambosus</invokerPackage>
 										<sourceFolder>src/gen/java/main</sourceFolder>
 									</configOptions>
 								</configuration>
