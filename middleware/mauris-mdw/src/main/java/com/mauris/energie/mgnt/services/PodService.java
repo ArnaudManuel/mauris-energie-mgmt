@@ -31,6 +31,10 @@ public class PodService  {
         cache.put("test", test);
     }
 
+    @GetMapping("/")
+    public ResponseEntity<String> hello() {
+        return ResponseEntity.ok("api is working");
+    }
 
     @GetMapping("/pods/{virtual-id}")
     public ResponseEntity<VirtualPod> getPodContent(@ApiParam(value = "the pod identification", required = true) @PathVariable("virtual-id") String virtualId) {
