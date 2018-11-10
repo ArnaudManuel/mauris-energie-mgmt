@@ -19,7 +19,7 @@ import java.util.HashMap;
 /**
  * Created by Arnaud on 10.11.2018.
  */
-@RestController("/pods")
+@RestController
 public class PodService  {
     @Autowired
     RestAccess podsApi;
@@ -27,7 +27,7 @@ public class PodService  {
     private static final HashMap<String, VirtualPod> cache = new HashMap<>();
 
 
-    @GetMapping("/{virtual-id}")
+    @GetMapping("/pods/{virtual-id}")
     public ResponseEntity<VirtualPod> getPodContent(@ApiParam(value = "the pod identification", required = true) @PathVariable("virtual-id") String virtualId) {
         VirtualPod virtualPod = cache.get(virtualId);
         if (virtualPod == null)
@@ -36,7 +36,7 @@ public class PodService  {
         return ResponseEntity.ok(virtualPod);
     }
 
-    @GetMapping("/{virtual-id}/data")
+    @GetMapping("/pods/{virtual-id}/data")
     public ResponseEntity<String> getPodData(@ApiParam(value = "the pod identification", required = true) @PathVariable("virtual-id") String virtualId, @ApiParam(value = "the pod identification format dd-MM-yyyy", required = true) @RequestParam(value = "from", required = true) @NotNull @Valid String from, @ApiParam(value = "the pod identification format dd-MM-yyyy", required = true) @RequestParam(value = "to", required = true) @NotNull @Valid String to) {
         SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
 
@@ -58,7 +58,7 @@ public class PodService  {
 
 
 
-    @PostMapping()
+    @PostMapping("/pods")
     public ResponseEntity<Void> podPost(@ApiParam(value = "the pod identification", required = true) @RequestParam(value = "virtual-id", required = true) @NotNull @Valid String virtualId, @ApiParam(value = "the pod contents, coma separated") @RequestParam(value = "contents", required = false) @Valid String contents) {
 
         VirtualPod virtualPod = new VirtualPod();
@@ -70,7 +70,7 @@ public class PodService  {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{virtual-id}")
+    @PutMapping("/pods/{virtual-id}")
     public ResponseEntity<VirtualPod> setPodContent(@ApiParam(value = "the pod identification", required = true) @PathVariable("virtual-id") String virtualId, @ApiParam(value = "the pod contents, coma separated", required = true) @RequestParam(value = "contents", required = true) @NotNull @Valid String contents) {
         VirtualPod virtualPod = cache.get(virtualId);
         if (virtualPod == null)
