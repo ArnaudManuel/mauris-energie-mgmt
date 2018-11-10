@@ -14,7 +14,7 @@
 	<groupId>com.mauris</groupId>
 	<artifactId>mauris-mdw</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>mauris-mdw</name>
 	<description>Demo project for Spring Boot</description>
