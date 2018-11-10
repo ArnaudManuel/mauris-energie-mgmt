@@ -18,7 +18,7 @@ public enum Obis {
 			return REACTIVE;
 		case "1-1:2.5.0":
 			return PRODUCTION;
-		case "1-1:3.29.0":
+		case "1-1:2.29.0":
 			return PRODUCTION;
 		default:
 			return OTHER;

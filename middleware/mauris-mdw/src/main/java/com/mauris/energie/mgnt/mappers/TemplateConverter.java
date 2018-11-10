@@ -33,7 +33,7 @@ public class TemplateConverter {
         for (DataTemplate data : resultsTemplate.getContent().getData()){
         	
         	if(kwh.contains(data.getObis())) {
-        		data.setMeasure(data.getMeasure()/4);
+        		data.setMeasure(""+(data.getMeasure()/4));
         		data.setUnit("KW");
         	}
         	

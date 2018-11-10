@@ -22,13 +22,13 @@ public class Device {
 	private List<MeteredValue> meteredValue;
 
 	public Device (VirtualPod pod, History history) {
-		Map<String, List<Measure>> measures = history.getMeasures();
+	//	Map<String, List<Measure>> measures = history.getMeasures();
 
-		List<MeteredValue> meteredValue = new LinkedList<>();
-		for(Map.Entry<String, List<Measure>> entry : measures.entrySet()){
+		//List<MeteredValue> meteredValue = new LinkedList<>();
+	//	for(Map.Entry<String, List<Measure>> entry : measures.entrySet()){
 			
 			//meteredValue.add(value);
-		}
+	//	}
 		
 		
 	}

@@ -38,4 +38,9 @@ public class History {
 	public String toString() {
 		return "History{" + "measures=" + measures + '}';
 	}
+	
+	public double getMax(Obis obis) {
+		
+		return 0;
+	}
 }
